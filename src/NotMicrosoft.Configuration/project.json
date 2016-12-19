@@ -1,0 +1,12 @@
+﻿{
+  "version": "1.0.0-*",
+  "dependencies": {
+    "Microsoft.Extensions.Configuration": "1.0.0",
+    "Microsoft.Extensions.Configuration.Abstractions": "1.0.0",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0",
+    "StringTemplate4": "4.0.8"
+  },
+  "frameworks": {
+    "netstandard1.3": {}
+  }
+}
