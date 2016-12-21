@@ -12,7 +12,10 @@ namespace BasicSample
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonTemplateFile("appsettings.json", "settings.ini");
+                .AddJsonTemplateFile("appsettings.json", (options) =>
+                {
+                    options.IniFilePath = "settings.ini";
+                });
 
             Configuration = builder.Build();
 
