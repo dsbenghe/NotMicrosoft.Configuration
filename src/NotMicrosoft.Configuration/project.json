@@ -1,5 +1,13 @@
 ﻿{
   "version": "0.1.0-*",
+  "name": "NotMicrosoft.Configuration",
+  "description": "Extending the configuration posibilities of NET core apps by allowing the use of ini/properties files",
+  "packOptions": {
+      "projectUrl": "https://github.com/dsbenghe/NotMicrosoft.Configuration",
+      "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0",
+      "tags": [ "NETCore", "Configuration", "NETStandard" ]
+  },
+  "authors": [ "dsbenghe" ],
   "dependencies": {
     "Microsoft.Extensions.Configuration": "1.0.0",
     "Microsoft.Extensions.Configuration.Abstractions": "1.0.0",
