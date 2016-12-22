@@ -15,6 +15,8 @@ namespace BasicSample
                 .AddJsonTemplateFile("appsettings.json", (options) =>
                 {
                     options.IniFilePath = "settings.ini";
+                    options.MagicCharacter = '$'; // default is '$'
+                    options.EnvironmentVariableName = "WHATEVER_CONFIG"; // default NOTMICROSOFT_CONFIG
                 });
 
             Configuration = builder.Build();

@@ -11,6 +11,7 @@ namespace NotMicrosoft.Configuration
     {
         private const int BufferSize = 1024;
         private readonly JsonTemplateConfigurationSource _jsonTemplateConfigurationSource;
+        private JsonTemplateOptions _options;
 
         public JsonTemplateConfigurationProvider(JsonTemplateConfigurationSource jsonTemplateConfigurationSource)
             : base(jsonTemplateConfigurationSource)
@@ -20,11 +21,26 @@ namespace NotMicrosoft.Configuration
 
         public override void Load(Stream stream)
         {
-            var jsonSettings = ProcessJsonTemplate(GetTemplate(stream));
+            _options = new JsonTemplateOptions();
+            _jsonTemplateConfigurationSource.Setup(_options);
 
+            var configValues = GetConfigValues();
+            if (configValues.Count == 0)
+            {
+                base.Load(stream);
+            }
+            else
+            {
+                LoadViaTemplate(stream, configValues);
+            }
+        }
+
+        private void LoadViaTemplate(Stream stream, Dictionary<string, string> configValues)
+        {
+            var jsonSettings = ProcessJsonTemplate(GetTemplate(stream), configValues);
             using (var newStream = new MemoryStream())
             {
-                using(var writer = new StreamWriter(newStream, Encoding.UTF8, BufferSize, true))
+                using (var writer = new StreamWriter(newStream, Encoding.UTF8, BufferSize, true))
                 {
                     writer.Write(jsonSettings);
                 }
@@ -40,13 +56,12 @@ namespace NotMicrosoft.Configuration
             {
                 templateString = sr.ReadToEnd();
             }
-            return new Template(templateString);
+            return new Template(templateString, _options.MagicCharacter,_options.MagicCharacter);
         }
 
-        private string ProcessJsonTemplate(Template template)
+        private string ProcessJsonTemplate(Template template, Dictionary<string, string> configValues)
         {
-            var iniValues = GetConfigValues();
-            foreach (var keyValuePair in iniValues)
+            foreach (var keyValuePair in configValues)
             {
                 template.Add(keyValuePair.Key, keyValuePair.Value);
             }
@@ -63,14 +78,12 @@ namespace NotMicrosoft.Configuration
 
         private string GetIniFilePath()
         {
-            var options = new JsonTemplateOptions();
-            _jsonTemplateConfigurationSource.Setup(options);
-            var envVariableName = options.EnvironmentVariableName;
+            var envVariableName = _options.EnvironmentVariableName;
             var envIniFilePath = Environment.GetEnvironmentVariable(envVariableName);
             if (!string.IsNullOrWhiteSpace(envIniFilePath) && File.Exists(envIniFilePath))
                 return envIniFilePath;
-            if (!string.IsNullOrWhiteSpace(options.IniFilePath) && File.Exists(options.IniFilePath))
-                return options.IniFilePath;
+            if (!string.IsNullOrWhiteSpace(_options.IniFilePath) && File.Exists(_options.IniFilePath))
+                return _options.IniFilePath;
             return null;
         }
     }
