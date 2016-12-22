@@ -1,6 +1,7 @@
 version: '0.1.0.{build}'
 configuration:
 - Release
+- Debug
 platform: Any CPU
 init:
 - ps: $Env:LABEL = "preview-" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
@@ -9,10 +10,14 @@ install:
 - DotNetCore.1.0.0-SDK.Preview2-x64.exe /quiet
 environment:
   PATH: $(PATH);$(PROGRAMFILES)\dotnet\
+before_build:
+- appveyor-retry dotnet restore -v Minimal  
 build_script:
-- appveyor-retry dotnet restore -v Minimal
 - dotnet build **\project.json -c %CONFIGURATION%
+after_build:
 - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o .\artifacts .\src\NotMicrosoft.Configuration\project.json
+test_script:
+- dotnet test test/Microsoft.Extensions.Configuration.Json.Test/project.json -c %CONFIGURATION%
 test: off
 artifacts:
 - path: artifacts\**\*.*

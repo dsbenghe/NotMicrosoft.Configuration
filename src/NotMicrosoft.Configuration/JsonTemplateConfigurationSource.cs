@@ -6,13 +6,19 @@ namespace NotMicrosoft.Configuration
 {
     public class JsonTemplateConfigurationSource : JsonConfigurationSource
     {
-        public Action<JsonTemplateOptions> Setup { get; }
+        private static readonly Action<JsonTemplateOptions> NopSetup = options => { };
+        public JsonTemplateConfigurationSource()
+        {
+            Setup = NopSetup;
+        }
 
-        public JsonTemplateConfigurationSource(string path, Action<JsonTemplateOptions> setup)
+        public JsonTemplateConfigurationSource(string path, Action<JsonTemplateOptions> setup) : this()
         {
             Setup = setup;
             Path = path;
         }
+
+        public Action<JsonTemplateOptions> Setup { get; }
 
         public override IConfigurationProvider Build(IConfigurationBuilder builder)
         {

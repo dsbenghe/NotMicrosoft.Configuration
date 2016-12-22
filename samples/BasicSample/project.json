@@ -6,7 +6,7 @@
     "copyToOutput": "settings.ini"
   },
   "dependencies": {
-      "NotMicrosoft.Configuration" : "1.0.0"
+      "NotMicrosoft.Configuration" : "0.1.0"
   },
   "frameworks": {
     "netcoreapp1.0": {

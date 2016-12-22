@@ -1,7 +1,7 @@
 ﻿{
   "version": "0.1.0-*",
   "name": "NotMicrosoft.Configuration",
-  "description": "Extending the configuration posibilities of NET core apps by allowing the use of ini/properties files",
+  "description": "Extending the configuration posibilities of NET core apps by applying configurable parameters stored in ini/properties files to json template files. Fully compatible with the built-in json configuration provider - designed to work as a drop-in replacement for it.",
   "packOptions": {
       "projectUrl": "https://github.com/dsbenghe/NotMicrosoft.Configuration",
       "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0",
@@ -9,9 +9,9 @@
   },
   "authors": [ "dsbenghe" ],
   "dependencies": {
-    "Microsoft.Extensions.Configuration": "1.0.0",
-    "Microsoft.Extensions.Configuration.Abstractions": "1.0.0",
-    "Microsoft.Extensions.Configuration.Json": "1.0.0",
+    "Microsoft.Extensions.Configuration": "1.1.0",
+    "Microsoft.Extensions.Configuration.Abstractions": "1.1.0",
+    "Microsoft.Extensions.Configuration.Json": "1.1.0",
     "StringTemplate4": "4.0.8"
   },
   "frameworks": {
