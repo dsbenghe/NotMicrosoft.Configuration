@@ -1,0 +1,14 @@
+sudo: required
+dist: trusty
+language: csharp
+dotnet: 1.0.0-preview2-003121
+mono: none
+
+env:
+- CONFIGURATION=Release
+- CONFIGURATION=Debug
+
+script:
+  - dotnet restore
+  - dotnet build --configuration $CONFIGURATION **/project.json
+  - dotnet test --configuration $CONFIGURATION test/Microsoft.Extensions.Configuration.Json.Test/project.json
