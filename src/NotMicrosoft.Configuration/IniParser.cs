@@ -1,11 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace NotMicrosoft.Configuration
 {
     public class IniParser
     {
+        public static Dictionary<string, string> Parse(List<string> iniFilePaths)
+        {
+            var mergedIniValues = new Dictionary<string, string>();
+            foreach (var iniFilePath in iniFilePaths)
+            {
+                var iniFileValues = Parse(iniFilePath);
+                foreach (var iniFileValue in iniFileValues)
+                {
+                    if (mergedIniValues.ContainsKey(iniFileValue.Key))
+                        mergedIniValues[iniFileValue.Key] = iniFileValue.Value;
+                    else
+                        mergedIniValues.Add(iniFileValue.Key, iniFileValue.Value);
+                }
+            }
+            return mergedIniValues;
+        }
+
         public static Dictionary<string, string> Parse(string iniFilePath)
         {
             using (var stream = new FileStream(iniFilePath, FileMode.Open, FileAccess.Read))

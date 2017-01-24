@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using NotMicrosoft.Configuration;
@@ -14,7 +15,7 @@ namespace BasicSample
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonTemplateFile("appsettings.json", (options) =>
                 {
-                    options.IniFilePath = "settings.ini";
+                    options.IniFilePaths = new List<string> {"settings.ini", "settings.prod.ini"};
                     options.MagicCharacter = '$'; // default is '$'
                     options.EnvironmentVariableName = "WHATEVER_CONFIG"; // default NOTMICROSOFT_CONFIG
                 });
@@ -23,6 +24,7 @@ namespace BasicSample
 
             Console.WriteLine($"option1 = {Configuration["option1"]}");
             Console.WriteLine($"option2 = {Configuration["option2"]}");
+            Console.WriteLine($"option3 = {Configuration["option3"]}");
             Console.WriteLine($"suboption1 = {Configuration["subsection:suboption1"]}");
             Console.WriteLine($"suboption2 = {Configuration["subsection:suboption2"]}");
         }
