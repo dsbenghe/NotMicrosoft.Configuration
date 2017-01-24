@@ -83,7 +83,7 @@ namespace NotMicrosoft.Configuration
             var envIniFilePath = Environment.GetEnvironmentVariable(envVariableName);
             if (!string.IsNullOrWhiteSpace(envIniFilePath))
             {
-                var iniFilePaths = envIniFilePath.Split(';').ToList();
+                var iniFilePaths = envIniFilePath.Split(Path.PathSeparator).ToList();
                 if (iniFilePaths.Any(x => !File.Exists(x))) throw new ArgumentException("Invalid IniFilePath.");
                 return iniFilePaths;
             }
