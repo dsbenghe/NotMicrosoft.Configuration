@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Microsoft.Extensions.Configuration.Json;
 using Antlr4.StringTemplate;
@@ -70,21 +71,29 @@ namespace NotMicrosoft.Configuration
 
         private Dictionary<string, string> GetConfigValues()
         {
-            var iniFilePath = GetIniFilePath();
-            if(iniFilePath != null)
-                return IniParser.Parse(iniFilePath);
+            var iniFilePaths = GetIniFilePaths();
+            if(iniFilePaths != null)
+                return IniParser.Parse(iniFilePaths);
             return new Dictionary<string, string>();
         }
 
-        private string GetIniFilePath()
+        private List<string> GetIniFilePaths()
         {
             var envVariableName = _options.EnvironmentVariableName;
             var envIniFilePath = Environment.GetEnvironmentVariable(envVariableName);
-            if (!string.IsNullOrWhiteSpace(envIniFilePath) && File.Exists(envIniFilePath))
-                return envIniFilePath;
-            if (!string.IsNullOrWhiteSpace(_options.IniFilePath) && File.Exists(_options.IniFilePath))
-                return _options.IniFilePath;
-            return null;
+            if (!string.IsNullOrWhiteSpace(envIniFilePath))
+            {
+                var iniFilePaths = envIniFilePath.Split(';').ToList();
+                if (iniFilePaths.Any(x => !File.Exists(x))) throw new ArgumentException("Invalid IniFilePath.");
+                return iniFilePaths;
+            }
+            if (_options.IniFilePaths != null)
+            {
+                if(_options.IniFilePaths.Any(x => !File.Exists(x))) throw new ArgumentException("Invalid IniFilePath.");
+                return _options.IniFilePaths;
+            }
+
+            return new List<string>();
         }
     }
 }
