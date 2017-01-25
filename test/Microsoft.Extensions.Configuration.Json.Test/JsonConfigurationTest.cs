@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using Microsoft.Extensions.Configuration.Test.Common;
+using NotMicrosoft.Configuration;
 using Xunit;
 
 namespace Microsoft.Extensions.Configuration.Json.Test
@@ -12,7 +13,7 @@ namespace Microsoft.Extensions.Configuration.Json.Test
     {
         private JsonConfigurationProvider LoadProvider(string json)
         {
-            var p = new JsonConfigurationProvider(new JsonConfigurationSource { Optional = true });
+            var p = new JsonTemplateConfigurationProvider(new JsonTemplateConfigurationSource { Optional = true });
             p.Load(TestStreamHelpers.StringToStream(json));
             return p;
         }
@@ -107,7 +108,7 @@ namespace Microsoft.Extensions.Configuration.Json.Test
         {
             var expectedMsg = new ArgumentException("File path must be a non-empty string.", "path").Message;
 
-            var exception = Assert.Throws<ArgumentException>(() => new ConfigurationBuilder().AddJsonFile(path: null));
+            var exception = Assert.Throws<ArgumentException>(() => new ConfigurationBuilder().AddJsonTemplateFile(path: null));
 
             Assert.Equal(expectedMsg, exception.Message);
         }
@@ -117,7 +118,7 @@ namespace Microsoft.Extensions.Configuration.Json.Test
         {
             var expectedMsg = new ArgumentException("File path must be a non-empty string.", "path").Message;
 
-            var exception = Assert.Throws<ArgumentException>(() => new ConfigurationBuilder().AddJsonFile(string.Empty));
+            var exception = Assert.Throws<ArgumentException>(() => new ConfigurationBuilder().AddJsonTemplateFile(string.Empty));
 
             Assert.Equal(expectedMsg, exception.Message);
         }
@@ -125,7 +126,7 @@ namespace Microsoft.Extensions.Configuration.Json.Test
         [Fact]
         public void JsonConfiguration_Throws_On_Missing_Configuration_File()
         {
-            var config = new ConfigurationBuilder().AddJsonFile("NotExistingConfig.json", optional: false);
+            var config = new ConfigurationBuilder().AddJsonTemplateFile("NotExistingConfig.json", optional: false);
             var exception = Assert.Throws<FileNotFoundException>(() => config.Build());
 
             // Assert
@@ -135,7 +136,7 @@ namespace Microsoft.Extensions.Configuration.Json.Test
         [Fact]
         public void JsonConfiguration_Does_Not_Throw_On_Optional_Configuration()
         {
-            var config = new ConfigurationBuilder().AddJsonFile("NotExistingConfig.json", optional: true).Build();
+            var config = new ConfigurationBuilder().AddJsonTemplateFile("NotExistingConfig.json", optional: true).Build();
         }
 
         [Fact]

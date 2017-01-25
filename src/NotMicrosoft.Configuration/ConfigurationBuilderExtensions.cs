@@ -12,7 +12,7 @@ namespace NotMicrosoft.Configuration
 
         public static IConfigurationBuilder AddJsonTemplateFile(this IConfigurationBuilder builder, string path, bool optional, Action<JsonTemplateOptions> setup = null)
         {
-            return builder.AddJsonTemplateFile(path, false, false, setup);
+            return builder.AddJsonTemplateFile(path, optional, false, setup);
         }
 
         public static IConfigurationBuilder AddJsonTemplateFile(this IConfigurationBuilder builder, string path, bool optional, bool reloadOnChange, Action<JsonTemplateOptions> setup = null)
@@ -23,7 +23,7 @@ namespace NotMicrosoft.Configuration
             }
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentNullException(nameof(path));
+                throw new ArgumentException("File path must be a non-empty string.", nameof(path));
             }
 
             var source = new JsonTemplateConfigurationSource(path, setup)
