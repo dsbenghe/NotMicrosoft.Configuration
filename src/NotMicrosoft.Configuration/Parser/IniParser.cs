@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
-namespace NotMicrosoft.Configuration
+namespace NotMicrosoft.Configuration.Parser
 {
     public class IniParser
     {

@@ -1,29 +1,34 @@
-using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
+using NotMicrosoft.Configuration.Parser;
 
 namespace NotMicrosoft.Configuration
 {
     public class JsonTemplateConfigurationSource : JsonConfigurationSource
     {
-        private static readonly Action<JsonTemplateOptions> NopSetup = options => { };
         public JsonTemplateConfigurationSource()
         {
-            Setup = NopSetup;
+            TemplateConfiguration = TemplateConfiguration.NopConfiguration;
         }
 
-        public JsonTemplateConfigurationSource(string path, Action<JsonTemplateOptions> setup) : this()
+        public JsonTemplateConfigurationSource(string path, TemplateConfiguration templateConfiguration) : this()
         {
-            Setup = setup;
+            TemplateConfiguration = templateConfiguration;
             Path = path;
         }
 
-        public Action<JsonTemplateOptions> Setup { get; }
+        public TemplateConfiguration TemplateConfiguration { get; }
 
         public override IConfigurationProvider Build(IConfigurationBuilder builder)
         {
             FileProvider = FileProvider ?? builder.GetFileProvider();
             return new JsonTemplateConfigurationProvider(this);
+        }
+
+        public Dictionary<string, string> GetConfigValues()
+        {
+            return IniParser.Parse(TemplateConfiguration.GetIniFilePaths());
         }
     }
 }

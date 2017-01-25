@@ -13,12 +13,12 @@ namespace BasicSample
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonTemplateFile("appsettings.json", (options) =>
-                {
-                    options.IniFilePaths = new List<string> {"settings.ini", "settings.prod.ini"};
-                    options.MagicCharacter = '$'; // default is '$'
-                    options.EnvironmentVariableName = "WHATEVER_CONFIG"; // default NOTMICROSOFT_CONFIG
-                });
+                .AddJsonTemplateFile("appsettings.json", 
+                    new TemplateConfiguration(new List<string> {"settings.ini", "settings.prod.ini"},
+                        "WHATEVER_CONFIG", // default NOTMICROSOFT_CONFIG
+                        '$' // default is '$'
+                        )
+                );
 
             Configuration = builder.Build();
 
