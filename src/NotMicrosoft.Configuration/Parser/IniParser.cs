@@ -1,26 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace NotMicrosoft.Configuration.Parser
 {
     public class IniParser
     {
         public static Dictionary<string, string> Parse(List<string> iniFilePaths)
-        {
-            var mergedIniValues = new Dictionary<string, string>();
-            foreach (var iniFilePath in iniFilePaths)
-            {
-                var iniFileValues = Parse(iniFilePath);
-                foreach (var iniFileValue in iniFileValues)
-                {
-                    if (mergedIniValues.ContainsKey(iniFileValue.Key))
-                        mergedIniValues[iniFileValue.Key] = iniFileValue.Value;
-                    else
-                        mergedIniValues.Add(iniFileValue.Key, iniFileValue.Value);
-                }
-            }
-            return mergedIniValues;
+        {            
+            return MergeDictionaries(iniFilePaths.Select(Parse));
         }
 
         public static Dictionary<string, string> Parse(string iniFilePath)
@@ -59,6 +48,14 @@ namespace NotMicrosoft.Configuration.Parser
                 }
             }
             return iniValues;
+        }
+
+        private static Dictionary<string, string> MergeDictionaries(IEnumerable<Dictionary<string, string>> dictionaries)
+        {
+            var finalDic = new Dictionary<string, string>();
+            // SelectMany by definition preserves ordering
+            dictionaries.SelectMany(x => x).ToList().ForEach(x => finalDic[x.Key] = x.Value);
+            return finalDic;
         }
     }
 }
