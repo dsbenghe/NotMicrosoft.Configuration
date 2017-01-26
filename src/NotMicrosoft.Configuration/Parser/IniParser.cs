@@ -9,7 +9,13 @@ namespace NotMicrosoft.Configuration.Parser
     {
         public static Dictionary<string, string> Parse(List<string> iniFilePaths)
         {            
-            return MergeDictionaries(iniFilePaths.Select(Parse));
+            var iniStreams = iniFilePaths.Select(iniFile => new FileStream(iniFile, FileMode.Open, FileAccess.Read)).Cast<Stream>().ToList();
+            var iniValues = Parse(iniStreams);
+            foreach (var iniStream in iniStreams)
+            {
+                iniStream.Dispose();
+            }
+            return iniValues;
         }
 
         public static Dictionary<string, string> Parse(string iniFilePath)
@@ -18,6 +24,11 @@ namespace NotMicrosoft.Configuration.Parser
             {
                 return Parse(stream);
             }
+        }
+
+        public static Dictionary<string, string> Parse(List<Stream> iniStreams)
+        {
+            return MergeDictionaries(iniStreams.Select(Parse));
         }
 
         public static Dictionary<string, string> Parse(Stream stream)

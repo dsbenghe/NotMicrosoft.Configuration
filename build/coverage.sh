@@ -42,6 +42,17 @@ $OPENCOVER \
   -filter:"+[NotMicrosoft*]* -[*Test*]*" \
   -searchdirs:$testdir/bin/$CONFIG/netcoreapp1.0 \
   -register:user
+  
+$OPENCOVER \
+  -target:"c:\Program Files\dotnet\dotnet.exe" \
+  -targetargs:"test -f netcoreapp1.0 $DOTNET_TEST_ARGS test/NotMicrosoft.Configuration.Tests" \
+  -mergeoutput \
+  -hideskipped:File \
+  -output:$coverage/coverage.xml \
+  -oldStyle \
+  -filter:"+[NotMicrosoft*]* -[*Test*]*" \
+  -searchdirs:$testdir/bin/$CONFIG/netcoreapp1.0 \
+  -register:user  
 
 echo "Generating HTML report"
 $REPORTGENERATOR \

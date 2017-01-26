@@ -2,7 +2,6 @@ version: '0.1.0.{build}'
 
 configuration:
 - Release
-- Debug
 
 image: Visual Studio 2015
 
@@ -27,7 +26,8 @@ after_build:
 - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o .\artifacts .\src\NotMicrosoft.Configuration\project.json
 
 test_script:
-- dotnet test test/Microsoft.Extensions.Configuration.Json.Test/project.json -c %CONFIGURATION% -f netcoreapp1.0 --no-build
+- dotnet test test/Microsoft.Extensions.Configuration.Json.Test -c %CONFIGURATION% -f netcoreapp1.0 --no-build
+- dotnet test test/NotMicrosoft.Configuration.Tests -c %CONFIGURATION% -f netcoreapp1.0 --no-build
 - bash build/coverage.sh
 
 artifacts:
