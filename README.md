@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/dsbenghe/NotMicrosoft.Configuration.svg?branch=master)](https://travis-ci.org/dsbenghe/NotMicrosoft.Configuration) - Linux
 
-[![NuGet](https://img.shields.io/nuget/v/NotMicrosoft.Configuration.svg)](https://www.nuget.org/packages/NotMicrosoft.Configuration/)
+[![NuGet](https://img.shields.io/nuget/v/NotMicrosoft.Configuration.svg)](https://www.nuget.org/packages/NotMicrosoft.Configuration/) [![Coverage Status](https://coveralls.io/repos/github/dsbenghe/NotMicrosoft.Configuration/badge.svg?branch=master)](https://coveralls.io/github/dsbenghe/NotMicrosoft.Configuration?branch=master)
 
 Extending the configuration posibilities of .NET core apps via json by using configurable "variables" (e.g. $connection_string$) whose values are stored in ini/properties files (e.g. making it a better solution for deploying production apps :)). Fully compatible with the built-in json configuration provider - designed to work as a drop-in replacement for it.
 

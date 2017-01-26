@@ -1,24 +1,37 @@
 version: '0.1.0.{build}'
+
 configuration:
 - Release
 - Debug
+
+image: Visual Studio 2015
+
 platform: Any CPU
+
 init:
 - ps: $Env:LABEL = "preview-" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
-install:
-- appveyor DownloadFile https://download.microsoft.com/download/A/3/8/A38489F3-9777-41DD-83F8-2CBDFAB2520C/packages/DotNetCore.1.0.0-SDK.Preview2-x64.exe
-- DotNetCore.1.0.0-SDK.Preview2-x64.exe /quiet
+
 environment:
   PATH: $(PATH);$(PROGRAMFILES)\dotnet\
+  COVERALLS_REPO_TOKEN:
+    secure: lb0Xx/ypRCNyKUeVQJoHoeNGFXBNlCpjfH5cuk2NYeMhSbJsfor6vc6prL4pvfvw
+
 before_build:
+- dotnet --info
 - appveyor-retry dotnet restore -v Minimal  
+
 build_script:
 - dotnet build **\project.json -c %CONFIGURATION%
+
 after_build:
 - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o .\artifacts .\src\NotMicrosoft.Configuration\project.json
+
 test_script:
-- dotnet test test/Microsoft.Extensions.Configuration.Json.Test/project.json -c %CONFIGURATION%
+- dotnet test test/Microsoft.Extensions.Configuration.Json.Test/project.json -c %CONFIGURATION% -f netcoreapp1.0 --no-build
+- bash build/coverage.sh
+
 artifacts:
 - path: artifacts\**\*.*
+
 cache:
 - '%USERPROFILE%\.nuget\packages'
