@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "NotMicrosoft.Configuration",
   "description": "Extending the configuration posibilities of NET core apps by applying configurable parameters stored in ini/properties files to json template files. Fully compatible with the built-in json configuration provider - designed to work as a drop-in replacement for it.",
   "packOptions": {
