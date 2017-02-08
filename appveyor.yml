@@ -1,4 +1,4 @@
-version: '0.1.0.{build}'
+version: '1.0.0.{build}'
 
 configuration:
 - Release
@@ -8,7 +8,7 @@ image: Visual Studio 2015
 platform: Any CPU
 
 init:
-- ps: $Env:LABEL = "preview-" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
+- ps: $Env:LABEL = $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
 
 environment:
   PATH: $(PATH);$(PROGRAMFILES)\dotnet\
