@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using NotMicrosoft.Configuration;
+using NotMicrosoft.Configuration.Json;
 
 namespace BasicSample
 {

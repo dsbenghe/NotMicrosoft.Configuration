@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using Microsoft.Extensions.Configuration.Json;
 
-namespace NotMicrosoft.Configuration
+namespace NotMicrosoft.Configuration.Json
 {
     public class JsonTemplateConfigurationProvider : JsonConfigurationProvider
     {

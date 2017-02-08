@@ -3,7 +3,7 @@
 
 using System.Linq;
 using Microsoft.Extensions.Configuration.Test.Common;
-using NotMicrosoft.Configuration;
+using NotMicrosoft.Configuration.Json;
 using Xunit;
 
 namespace Microsoft.Extensions.Configuration.Json.Test

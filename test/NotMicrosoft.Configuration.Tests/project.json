@@ -6,7 +6,7 @@
     ]
   },
   "dependencies": {
-    "NETStandard.Library": "1.6.0",
+    "NETStandard.Library": "1.6.1",
     "dotnet-test-xunit": "2.2.0-*",
     "NotMicrosoft.Configuration": {
       "target": "project"

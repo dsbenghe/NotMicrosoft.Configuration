@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Extensions.Configuration;
 
-namespace NotMicrosoft.Configuration
+namespace NotMicrosoft.Configuration.Json
 {
     public static class ConfigurationBuilderExtensions
     {
