@@ -26,7 +26,7 @@ namespace NotMicrosoft.Configuration.Json
             return new JsonTemplateConfigurationProvider(this);
         }
 
-        public Dictionary<string, string> GetConfigValues()
+        public virtual Dictionary<string, string> GetConfigValues()
         {
             return IniParser.Parse(TemplateConfiguration.GetIniFilePaths());
         }
