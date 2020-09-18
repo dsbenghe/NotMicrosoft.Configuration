@@ -38,7 +38,7 @@ Considering the example of configuring Serilog in appsettings.json file and the 
 ```
 
 Using Microsoft configuration api, there are couple of options for this (as far as I know):
-* Create appsettings.envname.json and repeat the whole tree of json names to fully specify the navigation path to arrive at the json values you want to change with the new values for MinimumLevel and pathFormat e.g.
+* Create appsettings.envname.json and repeat the whole tree of json names to fully specify the navigation path to arrive at the json values you want to change and change the values for MinimumLevel and pathFormat e.g.
 
 ```json
 {
@@ -55,7 +55,7 @@ Using Microsoft configuration api, there are couple of options for this (as far 
 }
 ```
 
-* Overwrite via ini file or environment variable by using the configuration hierarchy (this is what is suggested in the answer to the stack overflow question) e.g.
+* Overwrite via ini file or environment variables by using the configuration hierarchy (this is what is suggested in the answer to the stack overflow question) e.g.
   * Serilog:MinimumLevel=Information
   * Serilog:WriteTo:0:Args:pathFormat={some other path}
 

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>Extending the configuration posibilities of NET core apps by applying configurable parameters stored in ini/properties files to json template files. Fully compatible with the built-in json configuration provider - designed to work as a drop-in replacement for it.</Description>
-    <VersionPrefix>1.0.1</VersionPrefix>
+    <VersionPrefix>1.1.0</VersionPrefix>
     <Authors>dsbenghe</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>
     <AssemblyName>NotMicrosoft.Configuration</AssemblyName>
