@@ -17,13 +17,7 @@ DOTNET_TEST_ARGS="$DOTNET_BUILD_ARGS"
 
 echo CLI args: $DOTNET_BUILD_ARGS
 
-echo Restoring
-
-dotnet restore -v Warning
-
-echo Building
-
-dotnet build $DOTNET_BUILD_ARGS **/project.json
+dotnet build $DOTNET_BUILD_ARGS
 
 echo Testing
 
@@ -34,25 +28,14 @@ mkdir $coverage
 echo "Calculating coverage with OpenCover"
 $OPENCOVER \
   -target:"c:\Program Files\dotnet\dotnet.exe" \
-  -targetargs:"test -f netcoreapp1.0 $DOTNET_TEST_ARGS test/Microsoft.Extensions.Configuration.Json.Test" \
+  -targetargs:"test -f netcoreapp3.1 $DOTNET_TEST_ARGS --no-build" \
   -mergeoutput \
   -hideskipped:File \
   -output:$coverage/coverage.xml \
   -oldStyle \
   -filter:"+[NotMicrosoft*]* -[*Test*]*" \
-  -searchdirs:$testdir/bin/$CONFIG/netcoreapp1.0 \
-  -register:user
-  
-$OPENCOVER \
-  -target:"c:\Program Files\dotnet\dotnet.exe" \
-  -targetargs:"test -f netcoreapp1.0 $DOTNET_TEST_ARGS test/NotMicrosoft.Configuration.Tests" \
-  -mergeoutput \
-  -hideskipped:File \
-  -output:$coverage/coverage.xml \
-  -oldStyle \
-  -filter:"+[NotMicrosoft*]* -[*Test*]*" \
-  -searchdirs:$testdir/bin/$CONFIG/netcoreapp1.0 \
-  -register:user  
+  -searchdirs:$testdir/bin/$CONFIG/netcoreapp3.1 \
+  -register
 
 echo "Generating HTML report"
 $REPORTGENERATOR \
@@ -62,6 +45,6 @@ $REPORTGENERATOR \
 
 if [ -n "$COVERALLS_REPO_TOKEN" ]
 then
-  nuget install -OutputDirectory packages -Version 0.7.0 coveralls.net
-  packages/coveralls.net.0.7.0/tools/csmacnz.Coveralls.exe --opencover -i coverage/coverage.xml --useRelativePaths
+  nuget install -OutputDirectory packages -Version 1.3.4 coveralls.io
+  packages/coveralls.io.1.3.4/tools/coveralls.net.exe --opencover coverage/coverage.xml -r $COVERALLS_REPO_TOKEN
 fi  

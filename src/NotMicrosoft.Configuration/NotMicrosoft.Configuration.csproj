@@ -6,13 +6,16 @@
     <Authors>dsbenghe</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>
     <AssemblyName>NotMicrosoft.Configuration</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>NotMicrosoft.Configuration</PackageId>
     <PackageTags>NET;C#;Core;Configuration;NETStandard</PackageTags>
     <PackageProjectUrl>https://github.com/dsbenghe/NotMicrosoft.Configuration</PackageProjectUrl>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <DebugType>full</DebugType>
   </PropertyGroup>
 
   <ItemGroup>

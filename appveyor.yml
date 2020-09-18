@@ -1,9 +1,10 @@
-version: '1.0.1.{build}'
+version: '1.0.2.{build}'
 
 configuration:
 - Release
 
-image: Visual Studio 2015
+image:
+- Visual Studio 2019
 
 platform: Any CPU
 
@@ -13,25 +14,21 @@ init:
 environment:
   PATH: $(PATH);$(PROGRAMFILES)\dotnet\
   COVERALLS_REPO_TOKEN:
-    secure: lb0Xx/ypRCNyKUeVQJoHoeNGFXBNlCpjfH5cuk2NYeMhSbJsfor6vc6prL4pvfvw
+    secure: mDGMIHjBciwzuld3r0bezSh7+x6Y6bK7H849/5xerzdfI9AvihkTZV2d8PBQRArC
 
 before_build:
 - dotnet --info
 - appveyor-retry dotnet restore -v Minimal  
 
 build_script:
-- dotnet build **\project.json -c %CONFIGURATION%
-
-after_build:
-- dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o .\artifacts .\src\NotMicrosoft.Configuration\project.json
+- dotnet build -c %CONFIGURATION%
 
 test_script:
-- dotnet test test/Microsoft.Extensions.Configuration.Json.Test -c %CONFIGURATION% -f netcoreapp1.0 --no-build
-- dotnet test test/NotMicrosoft.Configuration.Tests -c %CONFIGURATION% -f netcoreapp1.0 --no-build
+- dotnet test --no-build
 - bash build/coverage.sh
 
 artifacts:
-- path: artifacts\**\*.*
+- path: src\NotMicrosoft.Configuration\bin\Release\*.nupkg
 
 cache:
 - '%USERPROFILE%\.nuget\packages'
