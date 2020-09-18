@@ -9,7 +9,7 @@
     <PackageId>NotMicrosoft.Configuration</PackageId>
     <PackageTags>NET;C#;Core;Configuration;NETStandard</PackageTags>
     <PackageProjectUrl>https://github.com/dsbenghe/NotMicrosoft.Configuration</PackageProjectUrl>
-    <PackageLicenseExpression>Apache</PackageLicenseExpression>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
