@@ -1,12 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 
 namespace NotMicrosoft.Configuration.Tests
 {
-    public class ResourceHelper
+    public static class ResourceHelper
     {
-        public static Stream GetResurceStream(string name)
+        public static Stream GetResourceStream(string name)
         {
             var currentType = typeof(ResourceHelper).GetTypeInfo();
             var assembly = currentType.Assembly;

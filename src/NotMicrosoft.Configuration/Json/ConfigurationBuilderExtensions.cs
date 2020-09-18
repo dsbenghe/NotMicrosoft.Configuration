@@ -5,23 +5,27 @@ namespace NotMicrosoft.Configuration.Json
 {
     public static class ConfigurationBuilderExtensions
     {
-        public static IConfigurationBuilder AddJsonTemplateFile(this IConfigurationBuilder builder, string path, TemplateConfiguration templateConfiguration = null)
+        public static IConfigurationBuilder AddJsonTemplateFile(this IConfigurationBuilder builder, string path,
+            TemplateConfiguration templateConfiguration = null)
         {
             return builder.AddJsonTemplateFile(path, false, templateConfiguration);
         }
 
-        public static IConfigurationBuilder AddJsonTemplateFile(this IConfigurationBuilder builder, string path, bool optional, TemplateConfiguration templateConfiguration = null)
+        public static IConfigurationBuilder AddJsonTemplateFile(this IConfigurationBuilder builder, string path,
+            bool optional, TemplateConfiguration templateConfiguration = null)
         {
             return builder.AddJsonTemplateFile(path, optional, false, templateConfiguration);
         }
 
-        public static IConfigurationBuilder AddJsonTemplateFile(this IConfigurationBuilder builder, string path, bool optional, bool reloadOnChange, TemplateConfiguration templateConfiguration = null)
+        public static IConfigurationBuilder AddJsonTemplateFile(this IConfigurationBuilder builder, string path,
+            bool optional, bool reloadOnChange, TemplateConfiguration templateConfiguration = null)
         {
             if (builder == null)
             {
                 throw new ArgumentNullException(nameof(builder));
             }
-            if (string.IsNullOrEmpty(path))
+
+            if (string.IsNullOrEmpty(path) && !optional)
             {
                 throw new ArgumentException("File path must be a non-empty string.", nameof(path));
             }

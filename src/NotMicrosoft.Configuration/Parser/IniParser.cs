@@ -5,11 +5,12 @@ using System.Linq;
 
 namespace NotMicrosoft.Configuration.Parser
 {
-    public class IniParser
+    public static class IniParser
     {
         public static Dictionary<string, string> Parse(List<string> iniFilePaths)
-        {            
-            var iniStreams = iniFilePaths.Select(iniFile => new FileStream(iniFile, FileMode.Open, FileAccess.Read)).Cast<Stream>().ToList();
+        {
+            var iniStreams = iniFilePaths.Select(iniFile => new FileStream(iniFile, FileMode.Open, FileAccess.Read))
+                .Cast<Stream>().ToList();
             var iniValues = Parse(iniStreams);
             foreach (var iniStream in iniStreams)
             {
@@ -58,15 +59,17 @@ namespace NotMicrosoft.Configuration.Parser
                     iniValues[key] = value;
                 }
             }
+
             return iniValues;
         }
 
-        private static Dictionary<string, string> MergeDictionaries(IEnumerable<Dictionary<string, string>> dictionaries)
+        private static Dictionary<string, string> MergeDictionaries(
+            IEnumerable<Dictionary<string, string>> dictionaries)
         {
-            var finalDic = new Dictionary<string, string>();
+            var finalDictionary = new Dictionary<string, string>();
             // SelectMany by definition preserves ordering
-            dictionaries.SelectMany(x => x).ToList().ForEach(x => finalDic[x.Key] = x.Value);
-            return finalDic;
+            dictionaries.SelectMany(x => x).ToList().ForEach(x => finalDictionary[x.Key] = x.Value);
+            return finalDictionary;
         }
     }
 }

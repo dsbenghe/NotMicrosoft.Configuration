@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
@@ -14,6 +15,11 @@ namespace NotMicrosoft.Configuration.Json
 
         public JsonTemplateConfigurationSource(string path, TemplateConfiguration templateConfiguration) : this()
         {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                throw new ArgumentException("Expected NotNull and NotEmpty", nameof(path));
+            }
+
             TemplateConfiguration = templateConfiguration;
             Path = path;
         }

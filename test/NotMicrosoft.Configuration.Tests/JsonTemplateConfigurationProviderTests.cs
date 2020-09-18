@@ -8,7 +8,7 @@ namespace NotMicrosoft.Configuration.Tests
     public class JsonTemplateConfigurationProviderTests
     {
         [Fact]
-        public void Load_WithConfigValues_Applies_Values()
+        public void Load_when_config_values_applies_values()
         {
             var json = @"{
                 'setting1': '$var1$',
@@ -17,6 +17,7 @@ namespace NotMicrosoft.Configuration.Tests
             }";
 
             var provider = new JsonTemplateConfigurationProvider(new MockJsonTemplateConfigurationSource());
+            
             provider.Load(TestStreamHelpers.StringToStream(json));
 
             Assert.Equal("var1_value", provider.Get("setting1"));
@@ -25,7 +26,7 @@ namespace NotMicrosoft.Configuration.Tests
         }
 
         [Fact]
-        public void Load_WithConfigValues_And_Nested_Variables_Applies_Values()
+        public void Load_with_config_values_and_nested_variables_applies_values()
         {
             var json = @"{
                 'setting1': '$var1$',
@@ -37,6 +38,7 @@ namespace NotMicrosoft.Configuration.Tests
             }";
 
             var provider = new JsonTemplateConfigurationProvider(new MockJsonTemplateConfigurationSource());
+
             provider.Load(TestStreamHelpers.StringToStream(json));
 
             Assert.Equal("var1_value", provider.Get("setting1"));
@@ -44,14 +46,14 @@ namespace NotMicrosoft.Configuration.Tests
             Assert.Equal("subsetting1_val", provider.Get("setting2:subsetting1"));
         }
 
-        class MockJsonTemplateConfigurationSource : JsonTemplateConfigurationSource
+        private class MockJsonTemplateConfigurationSource : JsonTemplateConfigurationSource
         {
             public override Dictionary<string, string> GetConfigValues()
             {
-                return new Dictionary<string, string>()
+                return new Dictionary<string, string>
                 {
-                    { "var1", "var1_value" },
-                    { "var2", "var2_value" }
+                    {"var1", "var1_value"},
+                    {"var2", "var2_value"}
                 };
             }
         }
