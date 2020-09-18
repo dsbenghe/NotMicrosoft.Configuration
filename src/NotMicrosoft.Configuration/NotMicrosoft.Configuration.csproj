@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Extending the configuration posibilities of NET core apps by applying configurable parameters stored in ini/properties files to json template files. Fully compatible with the built-in json configuration provider - designed to work as a drop-in replacement for it.</Description>
+    <VersionPrefix>1.0.1</VersionPrefix>
+    <Authors>dsbenghe</Authors>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <AssemblyName>NotMicrosoft.Configuration</AssemblyName>
+    <PackageId>NotMicrosoft.Configuration</PackageId>
+    <PackageTags>NET;C#;Core;Configuration;NETStandard</PackageTags>
+    <PackageProjectUrl>https://github.com/dsbenghe/NotMicrosoft.Configuration</PackageProjectUrl>
+    <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
+    <PackageReference Include="StringTemplate4" Version="4.0.8" />
+  </ItemGroup>
+
+</Project>
