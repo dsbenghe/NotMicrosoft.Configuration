@@ -13,7 +13,7 @@ namespace NotMicrosoft.Configuration.Tests
         {
             var firstStreamOfIniValues = ResourceHelper.GetResurceStream("first.ini");
             var values = IniParser.Parse(firstStreamOfIniValues);
-            Assert.Equal(values["var1"], "value_var1_first");
+            Assert.Equal("value_var1_first", values["var1"]);
         }
 
         [Fact]
@@ -22,8 +22,8 @@ namespace NotMicrosoft.Configuration.Tests
             var firstStreamOfIniValues = ResourceHelper.GetResurceStream("first.ini");
             var secondStreamOfIniValues = ResourceHelper.GetResurceStream("second.ini");
             var values = IniParser.Parse(new List<Stream> { firstStreamOfIniValues, secondStreamOfIniValues});
-            Assert.Equal(values["var2"], "value_var2_first");
-            Assert.Equal(values["var3"], "value_var3_second");
+            Assert.Equal("value_var2_first", values["var2"]);
+            Assert.Equal("value_var3_second", values["var3"]);
         }
 
         [Fact]
@@ -32,9 +32,9 @@ namespace NotMicrosoft.Configuration.Tests
             var firstStreamOfIniValues = ResourceHelper.GetResurceStream("first.ini");
             var secondStreamOfIniValues = ResourceHelper.GetResurceStream("second.ini");
             var values = IniParser.Parse(new List<Stream> { firstStreamOfIniValues, secondStreamOfIniValues });
-            Assert.Equal(values["var1"], "value_var1_second");
-            Assert.Equal(values["var2"], "value_var2_first");
-            Assert.Equal(values["var3"], "value_var3_second");
+            Assert.Equal("value_var1_second", values["var1"]);
+            Assert.Equal("value_var2_first", values["var2"]);
+            Assert.Equal("value_var3_second", values["var3"]);
         }
 
         [Fact]

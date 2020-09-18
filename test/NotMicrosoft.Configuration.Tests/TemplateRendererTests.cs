@@ -11,7 +11,7 @@ namespace NotMicrosoft.Configuration.Tests
             var result = TemplateRenderer.RenderTemplate("blah $var$ blah2", new TemplateConfiguration(new List<string>()),
                 new Dictionary<string, string> {{"var", "value1"}});
 
-            Assert.Equal(result, "blah value1 blah2");
+            Assert.Equal("blah value1 blah2", result);
         }
 
         [Fact]
@@ -20,7 +20,7 @@ namespace NotMicrosoft.Configuration.Tests
             var result = TemplateRenderer.RenderTemplate("blah #var# blah2", new TemplateConfiguration(new List<string>(), magicCharacter: '#'),
                 new Dictionary<string, string> { { "var", "value1" } });
 
-            Assert.Equal(result, "blah value1 blah2");
+            Assert.Equal("blah value1 blah2", result);
         }
     }
 }
